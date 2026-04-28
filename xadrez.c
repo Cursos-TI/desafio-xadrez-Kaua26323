@@ -31,6 +31,8 @@ int main() {
   int queen = 0;
   int bishop = 0;
   int tower = 0;
+  int horse = 3;
+  int horseDirection = 0;
 
   // Recebe a quantidade de movimentos para cada peça.
   printf("Escolha quantos movimentos a peças deve fazer.\n");
@@ -40,17 +42,21 @@ int main() {
   scanf("%d", &bishop);
   printf("\n3 - Movimentação da Torre: ");
   scanf("%d", &tower);
+  printf("\n4 - Movimentação do Cavalo (Esquerda: 0 | Direita: 1): ");
+  scanf("%d", &horseDirection);
 
   // Exibe os resultados das movimentações.
   printf("--- Resultado ---\n");
   printf("Movimento da Rainha: %d\n", queen);
 
+  // Movimento da Rainha com for
   for (int i = 0; i < queen; i++) {
     printf("Esquerda\n");
   }
   printf("====================\n");
   printf("Movimento do Bispo: %d\n", bishop);
 
+  // Movimento do Bispo com while
   while (bishop > 0 ){
     printf("Diagonal direita\n");
     bishop--;
@@ -58,6 +64,7 @@ int main() {
   printf("====================\n");
   printf("Movimento da Torre: %d\n", tower);
 
+  // Movimento do Torre com do while
   do{
     if(tower == 0){
       break;
@@ -67,8 +74,18 @@ int main() {
     tower--;
   }while (tower > 0);
 
+  printf("====================\n");
+  printf("Movimento do Cavalo: %d\n", horse);
 
+  // Movimento do Cavalo com do while
+  do{
 
+    for(int i = 0; i < 2; i++){
+      printf("Baixo\n");
+    }
+
+    horseDirection == 0 ? printf("Esquerda\n") : printf("Direita\n");
+  } while(horse != 3);
 
   return 0;
 }
