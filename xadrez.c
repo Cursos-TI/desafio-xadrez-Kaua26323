@@ -27,65 +27,175 @@
   // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
   // Inclua o uso de continue e break dentro dos loops.
 
+
+void queenMove(int number, int steps){
+  if(number <= 0 || number > 8){
+    return;
+  }
+
+  int stepsTaken = steps;
+
+  printf("Passo: %d - Esquerda\n", stepsTaken);
+
+  queenMove(number - 1, steps + 1);
+} 
+
+void bishopMove(int direnction, int bishopSteps){
+  if(bishopSteps == 0 || bishopSteps > 8) return;
+
+  char *direction;
+
+  switch (direnction) {
+     case 0:
+      direction = "Diagonal superior esquerda";
+      break;
+
+    case 1:
+      direction = "Diagonal superior direita";
+      break;
+
+    case 2:
+      direction = "Diagonal inferior esquerda";
+      break;
+
+    case 3:
+      direction = "Diagonal inferior direita";
+      break;
+  
+    default:
+      direction = "Diagonal superior direita";
+      break;
+  }
+
+  for (int i = 1; i <= bishopSteps; i++) {
+    
+    for (int j = 1; j <= 1; j++) {
+      printf("Passo %d: - %s\n", i, direction);
+    }
+  }
+
+}
+
+void towerMove(int number, int steps){
+  if(number <= 0 || number > 8){
+    return;
+  }
+
+  int stepsTaken = steps;
+
+  printf("Direita\n");
+  towerMove(number - 1, steps + 1);
+}
+
+void horseMove(int direnction, int side, int horse){
+  if(horse <= 0 || horse > 8) return;
+
+  char *direction;
+  char *turnSide;
+  int steps = 0;
+
+  turnSide = (side == 0) ? "Virou Esquerda" : "Virou Direita";
+
+  switch (direnction) {
+    case 0:
+      direction = "Reto para Esqueda";
+      break;
+
+    case 1:
+      direction = "Reto para Cima";
+      break;
+
+    case 2:
+      direction = "Reto para Direita";
+      break;
+
+    case 3:
+      direction = "Reto para Baixo";
+      break;
+  
+    default:
+      direction = "Reto para Cima";
+      break;
+  }
+
+  for (int i = 0, j = 0; i <= horse; i++){
+
+    if(j < 2 ){
+      printf("%s\n", direction);
+      j++;
+    }
+
+    if(i == 3){
+      printf("%s\n", turnSide);
+    }
+  }
+}
+
 int main() {
   int queen = 0;
   int bishop = 0;
+  int bishopDirection = 0;
+
   int tower = 0;
+
   int horse = 3;
   int horseDirection = 0;
+  int horseSide = 0;
 
   // Recebe a quantidade de movimentos para cada peça.
   printf("Escolha quantos movimentos a peças deve fazer.\n");
+
   printf("1 - Movimentação da Rainha: ");
   scanf("%d", &queen);
-  printf("\n2 - Movimentação do Bispo: ");
+
+
+  //Define para qual a direção e a quantidade de casas que o bispo vai andar
+  printf("2 - Movimentação do Bispo -\n");
+  printf("Diagonal superior esquerda: 0\n");
+  printf("Diagonal superior direita: 1\n");
+  printf("Diagonal inferior esquerda: 2\n");
+  printf("Diagonal inferior direita: 3\n");
+
+  printf("Escolha a direção: ");
+  scanf("%d", &bishopDirection);
+  
+  printf("Escolha quantas casas ele vai andar: ");
   scanf("%d", &bishop);
-  printf("\n3 - Movimentação da Torre: ");
+
+
+  printf("3 - Movimentação da Torre: ");
   scanf("%d", &tower);
-  printf("\n4 - Movimentação do Cavalo (Esquerda: 0 | Direita: 1): ");
+
+  //Define para qual direção o cavalo vai andar
+  printf("4 - Movimentação do Cavalo:\n");
+  printf("Direção(0 - Esquerda | 1 - Cima | 2 - Direita | 3 - Baixo): ");
   scanf("%d", &horseDirection);
 
+  //Define para qual lado o cavalo vai virar
+  printf("Lado(0 - Esquerda | 1 - Direita): ");
+  scanf("%d", &horseSide);
+
+
   // Exibe os resultados das movimentações.
-  printf("--- Resultado ---\n");
+
+  printf("\n--- Resultado ---\n");
+
   printf("Movimento da Rainha: %d\n", queen);
+  queenMove(queen, 1);
 
-  // Movimento da Rainha com for
-  for (int i = 0; i < queen; i++) {
-    printf("Esquerda\n");
-  }
   printf("====================\n");
+
   printf("Movimento do Bispo: %d\n", bishop);
+  bishopMove(bishopDirection, bishop);
 
-  // Movimento do Bispo com while
-  while (bishop > 0 ){
-    printf("Diagonal direita\n");
-    bishop--;
-  }
   printf("====================\n");
+
   printf("Movimento da Torre: %d\n", tower);
-
-  // Movimento do Torre com do while
-  do{
-    if(tower == 0){
-      break;
-    }
-
-    printf("Direita\n");
-    tower--;
-  }while (tower > 0);
+  towerMove(tower, 1);
 
   printf("====================\n");
   printf("Movimento do Cavalo: %d\n", horse);
-
-  // Movimento do Cavalo com do while
-  do{
-
-    for(int i = 0; i < 2; i++){
-      printf("Baixo\n");
-    }
-
-    horseDirection == 0 ? printf("Esquerda\n") : printf("Direita\n");
-  } while(horse != 3);
+  horseMove(horseDirection, horseSide, horse);
 
   return 0;
 }
